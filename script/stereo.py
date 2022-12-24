@@ -15,11 +15,11 @@ def parse_cmdline():
                         help='Set left port Name. Port Name has to be between { A, B, C, D}')
     parser.add_argument('-d', '--window-name', type=str, nargs=None, required=True,
                         help='Set window header name.')
-    parser.add_argument('-f', '--framerate', type=str, nargs=None, required=True,
+    parser.add_argument('-f', '--framerate', type=int, nargs=None, required=True,
                         help='Capture framerate not specified Default 20Hz will be used.')
     parser.add_argument('-w', '--width', type=int, nargs=None, required=True,
                         help='Set window header name.')
-    parser.add_argument('-h', '--height', type=str, nargs=None, required=True,
+    parser.add_argument('-h', '--height', type=int, nargs=None, required=True,
                         help='Set window header name.')
                     
 def main(i2c_bus,left_port,right_port,window_name,framerate,capture):
