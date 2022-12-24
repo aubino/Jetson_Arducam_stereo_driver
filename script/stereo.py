@@ -44,7 +44,7 @@ print("Framerate  : ",args.framerate)
 print("Image width : ",args.width)
 print("Image height : ",args.height)
 i2c = smbus.SMBus(args.i2c_bus)
-cap = cv2.VideoCapture(hardware.gstreamer_pipeline(args.widht,args.height,args.width,args.height,args.framerate,0),cv2.CAP_GSTREAMER)
+cap = cv2.VideoCapture(hardware.gstreamer_pipeline(args.width,args.height,args.width,args.height,args.framerate,0),cv2.CAP_GSTREAMER)
 if __name__ == "__main__":
     while True :
         main(i2c,args.left_port,args.right_port,args.window_name,args.framerate,cap)
