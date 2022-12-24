@@ -32,6 +32,43 @@ def activate_port(port_name : str, bus : smbus):
     else :
         print("Wrong port name. Port Name has to be between { A, B, C, D}")
         return False
+
+
+def os_activate_port(port_name:str ,bus_id : int):
+    device_address = 0x70
+    if port_name == "A" :
+        gp.output(7, False)
+        gp.output(11, False)
+        gp.output(12, True)
+        i2c = "i2cset -y {} 0x70 0x00 0x04".format(bus_id)
+        os.system(i2c)
+        return True 
+    elif port_name == "B" :
+        gp.output(7, True)
+        gp.output(11, False)
+        gp.output(12, True)
+        i2c = "i2cset -y {} 0x70 0x00 0x05".format(bus_id)
+        os.system(i2c)
+        return True
+    elif port_name == "C":
+        gp.output(7, False)
+        gp.output(11, True)
+        gp.output(12, False)
+        i2c = "i2cset -y {} 0x70 0x00 0x06".format(bus_id)
+        os.system(i2c)
+        return True
+    elif port_name == "D" :
+        gp.output(7, True)
+        gp.output(11, True)
+        gp.output(12, False)
+        i2c = "i2cset -y {} 0x70 0x00 0x07".format(bus_id)
+        os.system(i2c)
+        return True
+    else :
+        print("Wrong port name. Port Name has to be between { A, B, C, D}")
+        return False
+
+
 def setup_gpio():
     gp.setwarnings(False)
     gp.setmode(gp.BOARD)

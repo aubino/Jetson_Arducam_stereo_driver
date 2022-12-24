@@ -11,7 +11,6 @@ def sigterm_handler(_signo, _stack_frame):
     sys.exit(0)
 signal.signal(signal.SIGINT, sigterm_handler)
 signal.signal(signal.SIGTERM, sigterm_handler)
-
 def parse_cmdline():
     parser = argparse.ArgumentParser(description='Arducam Stereo Controller.')
     parser.add_argument('-i', '--i2c-bus', type=int, nargs=None, required=True,
@@ -22,7 +21,7 @@ def parse_cmdline():
                         help='Set left port Name. Port Name has to be between { A, B, C, D}')
     parser.add_argument('-d', '--window-name', type=str, nargs=None, required=True,
                         help='Set window header name.')
-    parser.add_argument('-f', '--framerate', type=int, nargs=None, required=True,
+    parser.add_argument('-f', '--framerate', type=float, nargs=None, required=True,
                         help='Capture framerate not specified Default 20Hz will be used.')
     parser.add_argument('-w', '--width', type=int, nargs=None, required=True,
                         help='Set capture width with argument -w.')
