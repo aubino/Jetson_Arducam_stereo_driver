@@ -33,23 +33,21 @@ def main(i2c_bus,left_port,right_port,window_name,framerate,capture):
         time.sleep(1/framerate)
         return left_frame,right_frame
 
-
+args = parse_cmdline()
+hardware.setup_gpio()
+print("i2c bus is",args.i2c_bus)
+print("left port : ",args.left_port)
+print("Right port : ",args.right_port)
+print("Window name : ",args.window_name)
+print("Framerate  : ",args.framerate)
+print("Image width : ",args.width)
+print("Image height : ",args.height)
+i2c = smbus.SMBus(args.i2c_bus)
+cap = cv2.VideoCapture(hardware.gstreamer_pipeline(args.widht,args.height,args.width,args.height,args.framerate,0),cv2.CAP_GSTREAMER)
 if __name__ == "__main__":
-    args = parse_cmdline()
-    hardware.setup_gpio()
-    print("i2c bus is",args.i2c_bus)
-    print("left port : ",args.left_port)
-    print("Right port : ",args.right_port)
-    print("Window name : ",args.window_name)
-    print("Framerate  : ",args.framerate)
-    print("Image width : ",args.width)
-    print("Image height : ",args.height)
-    cap = cv2.VideoCapture(hardware.gstreamer_pipeline(args.widht,args.height,args.width,args.height,args.framerate,0),cv2.CAP_GSTREAMER)
-    i2c = smbus.SMBus(args.i2c_bus)
-    
     while True :
         main(i2c,args.left_port,args.right_port,args.window_name,args.framerate,cap)
-    gp.output(7, False)
-    gp.output(11, False)
-    gp.output(12, True)
+gp.output(7, False)
+gp.output(11, False)
+gp.output(12, True)
     
