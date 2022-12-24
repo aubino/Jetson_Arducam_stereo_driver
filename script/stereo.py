@@ -18,9 +18,9 @@ def parse_cmdline():
     parser.add_argument('-f', '--framerate', type=int, nargs=None, required=True,
                         help='Capture framerate not specified Default 20Hz will be used.')
     parser.add_argument('-w', '--width', type=int, nargs=None, required=True,
-                        help='Set window header name.')
+                        help='Set capture width with argument -w.')
     parser.add_argument('-h', '--height', type=int, nargs=None, required=True,
-                        help='Set window header name.')
+                        help='Set capture height with argument -h.')
                     
 def main(i2c_bus,left_port,right_port,window_name,framerate,capture):
     if capture.isOpened() :
