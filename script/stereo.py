@@ -21,6 +21,7 @@ def parse_cmdline():
                         help='Set capture width with argument -w.')
     parser.add_argument('-he', '--height', type=int, nargs=None, required=True,
                         help='Set capture height with argument -he.')
+    return parser.parse_args()
                     
 def main(i2c_bus,left_port,right_port,window_name,framerate,capture):
     if capture.isOpened() :
