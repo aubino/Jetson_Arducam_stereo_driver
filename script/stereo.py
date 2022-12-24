@@ -42,7 +42,7 @@ if __name__ == "__main__":
     print("Right port : ",args.right_port)
     print("Window name : ",args.window_name)
     print("Framerate  : ",args.framerate)
-    print("Image width : "args.width)
+    print("Image width : ",args.width)
     print("Image height : ",args.height)
     cap = cv2.VideoCapture(hardware.gstreamer_pipeline(args.widht,args.height,args.width,args.height,args.framerate,0),cv2.CAP_GSTREAMER)
     i2c = smbus.SMBus(args.i2c_bus)
