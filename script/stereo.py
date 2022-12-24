@@ -4,6 +4,13 @@ import argparse
 import cv2
 import time 
 import smbus
+import signal
+import sys
+def sigterm_handler(_signo, _stack_frame):
+    # Raises SystemExit(0):
+    sys.exit(0)
+signal.signal(signal.SIGINT, sigterm_handler)
+signal.signal(signal.SIGTERM, sigterm_handler)
 
 def parse_cmdline():
     parser = argparse.ArgumentParser(description='Arducam Stereo Controller.')
