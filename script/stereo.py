@@ -33,7 +33,7 @@ def capture_loop(i2c_bus,left_port,right_port,window_name,framerate,capture):
     left_frame_rgb,right_frame_rgb = None,None
     if capture.isOpened() :
         hardware.activate_port(left_port,i2c_bus)
-        time.sleep(1/framerate)
+        time.sleep(0.02)
         if capture.grab():
             left_ret,left_frame = capture.retrieve()
             if left_ret :
@@ -42,16 +42,32 @@ def capture_loop(i2c_bus,left_port,right_port,window_name,framerate,capture):
                 print("Left image Aquired")
                 #cv2.waitKey(int((1/framerate)*250))
         hardware.activate_port(right_port,i2c_bus)
-        time.sleep(1/framerate)
+        time.sleep(0.02)
         if capture.grab() :
             right_ret,right_frame = capture.retrieve()
             if right_ret :
                 #right_frame_rgb = cv2.cvtColor(right_frame, cv2.COLOR_YUV2BGR_I420)
-                #cv2.imshow(window_name+"_right",right_frame)
+                cv2.imshow(window_name+"_right",right_frame)
                 print("Right image Aquired")
-                #cv2.waitKey(int((1/framerate)*250))
+        cv2.waitKey(int((1/framerate)*1000))
         return True,left_frame_rgb,right_frame_rgb
     return False, None,None
+def capture_loop2(i2c_bus,left_port,right_port,window_name,framerate,capture) : 
+    left_frame_rgb,right_frame_rgb = None,None
+    if capture.isOpened() :
+        hardware.activate_port(left_port,i2c_bus)
+        time.sleep(0.02)
+        if capture.grab():
+                print("Left image Aquired")
+                #cv2.waitKey(int((1/framerate)*250))
+        hardware.activate_port(right_port,i2c_bus)
+        time.sleep(0.02)
+        if capture.grab():
+                print("Right image Aquired")
+        cv2.waitKey(int((1/framerate)*1000))
+        return True,left_frame_rgb,right_frame_rgb
+    return False, None,None
+
 
 args = parse_cmdline()
 hardware.setup_gpio()
@@ -70,7 +86,7 @@ cap = cv2.VideoCapture(hardware.gstreamer_pipeline(args.width,args.height,args.w
 cv2.waitKey(1000)
 if __name__ == "__main__":
     while True :
-        capture_loop(i2c,args.left_port,args.right_port,args.window_name,args.framerate,cap)
+        capture_loop2(i2c,args.left_port,args.right_port,args.window_name,args.framerate,cap)
 gp.output(7, False)
 gp.output(11, False)
 gp.output(12, True)
