@@ -36,14 +36,14 @@ def capture_loop(i2c_bus,left_port,right_port,window_name,framerate,capture):
         if capture.grab():
             left_ret,left_frame = capture.retrieve()
             if left_ret :
-                #left_frame_rgb = cv2.cvtColor(left_frame, cv2.COLOR_YUV2BGR_I420)
-                cv2.imshow(window_name+"_left",left_frame)
+                left_frame_rgb = cv2.cvtColor(left_frame, cv2.COLOR_YUV2BGR_I420)
+                cv2.imshow(window_name+"_left",left_frame_rgb)
         hardware.activate_port(right_port,i2c_bus)
         if capture.grab() :
             right_ret,right_frame = capture.retrieve()
             if right_ret :
-                #right_frame_rgb = cv2.cvtColor(right_frame, cv2.COLOR_YUV2BGR_I420)
-                cv2.imshow(window_name+"_right",right_frame)
+                right_frame_rgb = cv2.cvtColor(right_frame, cv2.COLOR_YUV2BGR_I420)
+                cv2.imshow(window_name+"_right",right_frame_rgb)
         return True,left_frame_rgb,right_frame_rgb
     return False, None,None
 
@@ -59,8 +59,8 @@ print("Image height : ",args.height)
 i2c = smbus.SMBus(args.i2c_bus)
 hardware.setup_gpio()
 hardware.activate_port(args.left_port,i2c)
-#cap = cv2.VideoCapture(hardware.gstreamer_pipeline2(args.width,args.height,args.framerate,0,0),cv2.CAP_GSTREAMER)
-cap = cv2.VideoCapture(hardware.gstreamer_pipeline(args.width,args.height,args.width,args.height,args.framerate,0),cv2.CAP_GSTREAMER)
+cap = cv2.VideoCapture(hardware.gstreamer_pipeline2(args.width,args.height,args.framerate,0,0),cv2.CAP_GSTREAMER)
+#cap = cv2.VideoCapture(hardware.gstreamer_pipeline(args.width,args.height,args.width,args.height,args.framerate,0),cv2.CAP_GSTREAMER)
 if __name__ == "__main__":
     while True :
         capture_loop(i2c,args.left_port,args.right_port,args.window_name,args.framerate,cap)
