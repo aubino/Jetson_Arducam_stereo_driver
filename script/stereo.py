@@ -44,7 +44,7 @@ def capture_loop(i2c_bus,left_port,right_port,window_name,framerate,capture):
             if right_ret :
                 #right_frame_rgb = cv2.cvtColor(right_frame, cv2.COLOR_YUV2BGR_I420)
                 cv2.imshow(window_name+"_right",right_frame)
-        cv2.waitKey(1/framerate)
+        cv2.waitKey(1)
         return True,left_frame_rgb,right_frame_rgb
     return False, None,None
 
