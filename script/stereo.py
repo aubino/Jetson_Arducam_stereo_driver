@@ -62,7 +62,7 @@ hardware.activate_port(args.left_port)
 cap = cv2.VideoCapture(hardware.gstreamer_pipeline2(args.width,args.height,args.framerate,0),cv2.CAP_GSTREAMER)
 if __name__ == "__main__":
     while True :
-        main(i2c,args.left_port,args.right_port,args.window_name,args.framerate,cap)
+        capture_loop(i2c,args.left_port,args.right_port,args.window_name,args.framerate,cap)
 gp.output(7, False)
 gp.output(11, False)
 gp.output(12, True)
