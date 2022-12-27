@@ -58,7 +58,7 @@ print("Image width : ",args.width)
 print("Image height : ",args.height)
 i2c = smbus.SMBus(args.i2c_bus)
 hardware.setup_gpio()
-hardware.activate_port(args.left_port)
+hardware.activate_port(args.left_port,i2c)
 cap = cv2.VideoCapture(hardware.gstreamer_pipeline2(args.width,args.height,args.framerate,0),cv2.CAP_GSTREAMER)
 if __name__ == "__main__":
     while True :
