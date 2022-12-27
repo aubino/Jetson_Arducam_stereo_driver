@@ -78,7 +78,7 @@ def setup_gpio():
 
 def gstreamer_pipeline (capture_width : int,capture_height : int ,display_width : int,display_height : int ,framerate : int, flip_method : int):
     
-    return "nvarguscamerasrc sensor-id=0 ! video/x-raw(memory:NVMM), width=(int)" +str(capture_width) + ", height=(int)" + str(capture_height) + ", format=(string)NV12, framerate=(fraction)" + str(framerate) + "/1 ! nvvidconv flip-method=" + str(flip_method) + " ! video/x-raw, width=(int)" + str(display_width) + ", height=(int)" +str(display_height) + ", format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink max-buffers=1 drop=true" 
+    return "nvarguscamerasrc sensor-id=0 ! video/x-raw(memory:NVMM), width=(int)" +str(capture_width) + ", height=(int)" + str(capture_height) + ", format=(string)NV12, framerate=(fraction)" + str(framerate) + "/1 ! nvvidconv flip-method=" + str(flip_method) + " ! video/x-raw, width=(int)" + str(display_width) + ", height=(int)" +str(display_height) + ", format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink" 
     
 def gstreamer_pipeline2(capture_width : int,capture_height : int,framerate : int, flip_method : int,sensor_id : int) : 
     
