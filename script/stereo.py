@@ -33,14 +33,14 @@ def capture_loop(i2c_bus,left_port,right_port,window_name,framerate,capture):
     left_frame_rgb,right_frame_rgb = None,None
     if capture.isOpened() :
         hardware.activate_port(left_port,i2c_bus)
-        cv2.waitKey(int((1/framerate)*2000))
+        cv2.waitKey(int((1/framerate)*500))
         if capture.grab():
             left_ret,left_frame = capture.retrieve()
             if left_ret :
                 #left_frame_rgb = cv2.cvtColor(left_frame, cv2.COLOR_YUV2BGR_I420)
                 cv2.imshow(window_name+"_left",left_frame)
         hardware.activate_port(right_port,i2c_bus)
-        cv2.waitKey(int((1/framerate)*2000))
+        cv2.waitKey(int((1/framerate)*500))
         if capture.grab() :
             right_ret,right_frame = capture.retrieve()
             if right_ret :
