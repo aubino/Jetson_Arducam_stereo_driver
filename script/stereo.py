@@ -52,6 +52,7 @@ def capture_loop(i2c_bus,left_port,right_port,window_name,framerate,capture):
         cv2.waitKey(int((1/framerate)*1000))
         return True,left_frame_rgb,right_frame_rgb
     return False, None,None
+
 def capture_loop2(i2c_bus,left_port,right_port,window_name,framerate,capture) : 
     left_frame_rgb,right_frame_rgb = None,None
     if capture.isOpened() :
@@ -86,7 +87,7 @@ cap = cv2.VideoCapture(hardware.gstreamer_pipeline(args.width,args.height,args.w
 cv2.waitKey(1000)
 if __name__ == "__main__":
     while True :
-        capture_loop2(i2c,args.left_port,args.right_port,args.window_name,args.framerate,cap)
+        capture_loop(i2c,args.left_port,args.right_port,args.window_name,args.framerate,cap)
 gp.output(7, False)
 gp.output(11, False)
 gp.output(12, True)
