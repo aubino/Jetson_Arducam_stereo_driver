@@ -29,19 +29,22 @@ def parse_cmdline():
                         help='Set capture height with argument -he.')
     return parser.parse_args()
                     
-def main(i2c_bus,left_port,right_port,window_name,framerate,capture):
+def capture_loop(i2c_bus,left_port,right_port,window_name,framerate,capture):
+    left_frame_rgb,right_frame_rgb = None,None
     if capture.isOpened() :
         hardware.activate_port(left_port,i2c_bus)
-        left_ret,left_frame = capture.grab()
+        if capture.grab():
+            left_ret,left_frame = capture.retrieve()
+            if left_ret :
+                left_frame_rgb = cv2.cvtColor(left_frame, cv2.COLOR_YUV2BGR_I420)
+                cv2.imshow(window_name+"_left",left_frame_rgb)
         hardware.activate_port(right_port,i2c_bus)
-        right_ret,right_frame = capture.grab()
-        if left_ret :
-            left_frame_rgb = cv2.cvtColor(left_frame, cv2.COLOR_YUV2BGR_I420)
-            cv2.imshow(window_name+"_left",left_frame_rgb)
-        if right_ret : 
-            right_frame_rgb = cv2.cvtColor(right_frame, cv2.COLOR_YUV2BGR_I420)
-            cv2.imshow(window_name+"_right",right_frame_rgb)
-        return True,left_frame,right_frame
+        if capture.grab() :
+            right_ret,right_frame = capture.retrieve()
+            if right_ret :
+                right_frame_rgb = cv2.cvtColor(right_frame, cv2.COLOR_YUV2BGR_I420)
+                cv2.imshow(window_name+"_right",right_frame_rgb)
+        return True,left_frame_rgb,right_frame_rgb
     return False, None,None
 
 args = parse_cmdline()
