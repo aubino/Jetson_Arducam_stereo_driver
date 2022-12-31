@@ -87,9 +87,9 @@ def gstreamer_pipeline2(capture_width : int,capture_height : int,framerate : int
     #return "nvarguscamerasrc ! video/x-raw(memory:NVMM), width=(int)" + str(capture_width) + ", height=(int)" + str(capture_height) +", format=(string)NV12" + ", framerate=(fraction)" + str(framerate) + "/1 ! nvvidconv flip-method=" + str(flip_method) + " ! video/x-raw, width=(int)" + str(display_width) + ", height=(int)" + str(display_height) +", format=I420, appsink max-buffers=1 drop=true"
 
 def gstreamer_pipeline3(capture_width : int,capture_height : int,display_width : int,display_height : int,framerate : int, flip_method : int,sensor_id : int) :
-    pipeline5 = "! appsink"
+    pipeline5 = "! appsink max-buffers=30 drop=true"
     pipeline1 =  "nvarguscamerasrc sensor-id=0 "
     pipeline2 = "! video/x-raw(memory:NVMM), width=(int)" +str(capture_width) + ", height=(int)" + str(capture_height) + ", format=(string)NV12, framerate=(fraction)" + str(framerate) + "/1 "
     pipeline3 =  "! nvvidconv flip-method=" + str(flip_method) + " ! video/x-raw, width=(int)" + str(display_width) + ", height=(int)" +str(display_height) + ", format=(string)I420 "
-    pipeline4 = ""
+    pipeline4 = "! videoconvert ! video/x-raw, format=(string)I420 "
     return pipeline1+ pipeline2 + pipeline3 + pipeline4 + pipeline5
